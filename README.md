@@ -8,7 +8,7 @@ To compile the program, use:
 
 ```bash
 g++ dining_philosophers.cpp -o dining_philosophers.exe -pthread
-
+```
 To run the program use:
 ```bash 
 .\dining_philosophers.exe 5 1000 
