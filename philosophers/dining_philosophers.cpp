@@ -21,6 +21,8 @@ private:
     void displayStates() {
         std::lock_guard<std::mutex> console_lock(console_mutex);
         system("cls");
+        system("clear");
+
         std::cout << "\033[H";
         for (int i = 0; i < numPhilosophers; i++) {
             std::cout << "Philosopher " << i << ": " << states[i] << std::endl;
