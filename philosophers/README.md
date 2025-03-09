@@ -16,7 +16,7 @@ To run the program use:
 ```
 ## Threads
 Each thread represent one philosopher whose only  goal in life is to eat.
-after each meal the philosopher will sleep for some time 
+after each meal the philosopher will think for some time 
 
 ## Critical Section
 The critical section is the fork usage.
