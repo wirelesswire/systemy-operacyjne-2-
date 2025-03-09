@@ -1,0 +1,5 @@
+testthreads.exe
+chatapp/chat_client.exe
+chatapp/chat_server.exe
+philosophers/dining_philosophers.exe
+.vscode/settings.json

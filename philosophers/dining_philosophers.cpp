@@ -6,9 +6,9 @@
 
 class DiningPhilosophers {
 private:
-    int thinkTime;
+    int thinkTime; 
     int eatTime;
-    std::vector<std::mutex> forks;
+    std::vector<std::mutex> forks; 
     std::vector<std::thread> philosophers;
     std::vector<std::string> states;
     std::vector<std::string> fork_states;
@@ -16,6 +16,7 @@ private:
     int numPhilosophers;
     bool running;
 
+    //displays the state of each fork and philosopher
     void displayStates() {
         std::lock_guard<std::mutex> console_lock(console_mutex);
         system("cls");
