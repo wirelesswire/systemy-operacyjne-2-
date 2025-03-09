@@ -69,3 +69,17 @@ A real-time chat application implemented in C++ using Windows Sockets (Winsock).
 - The client connects to localhost (127.0.0.1) by default
 - All messages are broadcast to all connected clients
 - The application uses TCP/IP for reliable message delivery
+
+
+## Threads
+each client is given its own thread for communication 
+
+## Critical Section 
+there are two crital sections one for the clients and one for message history each with it's own mutex.
+when a client is connected to the server it will lock the mutex for the clients for the duration of writing. 
+after that the history mutex will be locked for the duration of sending previous messages to the client.
+
+after inital setup the server awaits for messages from the clients, stores them in history(mutexed) and broadcasts them to all connected clients.
+
+
+

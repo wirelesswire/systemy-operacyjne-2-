@@ -13,7 +13,7 @@ private:
     std::string username;
 
 public:
-    ChatClient() : running(true) {
+    ChatClient(const std::string& ip = "127.0.0.1") : running(true) {
         WSADATA wsaData;
         WSAStartup(MAKEWORD(2, 2), &wsaData);
         
@@ -21,7 +21,7 @@ public:
         sockaddr_in serverAddr;
         serverAddr.sin_family = AF_INET;
         serverAddr.sin_port = htons(12345);
-        serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+        serverAddr.sin_addr.s_addr = inet_addr(ip.c_str());
 
         if (connect(clientSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
             std::cout << "Failed to connect to server.\n";
@@ -64,7 +64,12 @@ public:
             }
             
             buffer[bytesReceived] = '\0';
-            std::cout << buffer << std::endl;
+            // Add timestamp to received message
+            time_t now = time(0);
+            tm* ltm = localtime(&now);
+            char timestamp[9];
+            strftime(timestamp, sizeof(timestamp), "%H:%M:%S", ltm);
+            std::cout << "[" << timestamp << "] " << buffer << std::endl;
         }
     }
 

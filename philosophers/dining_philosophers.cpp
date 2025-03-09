@@ -3,6 +3,7 @@
 #include <mutex>
 #include <vector>
 #include <chrono>
+#include <string>
 
 class DiningPhilosophers {
 private:
@@ -51,7 +52,7 @@ private:
         updateForkState(secondFork, "in use by philosopher " + std::to_string(id));
         updateState(id, "eating");
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(eatTime));
+        std::this_thread::sleep_for(std::chrono::milliseconds(eatTime) * (std::rand() % 3 + 1));
         
         updateState(id, "putting down forks");
         updateForkState(firstFork, "free");
