@@ -3,7 +3,6 @@
 A real-time chat application implemented in C++ using Windows Sockets (Winsock). The application consists of a server that can handle multiple client connections and clients that can send/receive messages in real-time.
 
 ## Features
-
 - Multi-client support
 - Real-time messaging
 - Username identification
@@ -16,20 +15,26 @@ A real-time chat application implemented in C++ using Windows Sockets (Winsock).
 - Windows operating system
 - C++ compiler with C++11 support
 - Winsock2 library (included in Windows SDK)
+- Make build system
 
-## Building the Application
+### Build Instructions
+To build both client and server:
+```bash
+make
+```
 
-1. Compile the server:
-   ```
-   g++ chat_server.cpp -o chat_server -lws2_32
-   ```
+To build individually:
+```bash
+make chat_server  # For server only
+make chat_client  # For client only
+```
 
-2. Compile the client:
-   ```
-   g++ chat_client.cpp -o chat_client -lws2_32
-   ```
+### Clean Build Files
+```bash
+make clean
+```
 
-## Usage
+## Running the Application
 
 ### Starting the Server
 
