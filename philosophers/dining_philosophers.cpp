@@ -71,7 +71,7 @@ public:
     }
     void think(int id) {
         updateState(id, "thinking");
-        std::this_thread::sleep_for(std::chrono::milliseconds(thinkTime));
+        std::this_thread::sleep_for(std::chrono::milliseconds(thinkTime)* (std::rand() % 3 + 1));
     }
     void start() {
         system("cls");  // Clear console at start
