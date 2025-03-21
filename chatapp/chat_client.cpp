@@ -81,7 +81,12 @@ public:
 };
 
 int main() {
-    ChatClient client;
+    std::string serverIP;
+    std::cout << "Enter server IP (or press Enter for localhost): ";
+    std::getline(std::cin, serverIP);
+    
+    // Use default IP (localhost) if user didn't enter anything
+    ChatClient client(serverIP.empty() ? "127.0.0.1" : serverIP);
     client.start();
     return 0;
 }

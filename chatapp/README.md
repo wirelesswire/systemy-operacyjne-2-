@@ -12,10 +12,23 @@ A real-time chat application implemented in C++ using Windows Sockets (Winsock).
 
 ## Requirements
 
-- Windows operating system
+- Operating system: Windows or Linux
 - C++ compiler with C++11 support
-- Winsock2 library (included in Windows SDK)
-- Make build system
+- Windows: Winsock2 library (included in Windows SDK)
+- Linux: POSIX sockets
+
+## Building the Application
+
+### Windows
+```bash
+# Build server
+g++ chat_server.cpp -o chat_server.exe -lws2_32
+
+# Build client
+g++ chat_client.cpp -o chat_client.exe -lws2_32
+```
+
+### Make build system
 
 ### Build Instructions
 To build both client and server:
@@ -33,6 +46,10 @@ make chat_client  # For client only
 ```bash
 make clean
 ```
+
+g++ .\chat_client.cpp -o .\chat_client.exe -lws2_32
+
+ g++ .\chat_server.cpp -o .\chat_server.exe -lws2_32
 
 ## Running the Application
 

@@ -95,7 +95,22 @@ public:
     }
 
     void start() {
-        std::cout << "Server started. Waiting for connections...\n";
+        // Get and display server IP address
+        char hostName[256];
+        gethostname(hostName, sizeof(hostName));
+        struct addrinfo hints, *res;
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_INET;
+        hints.ai_socktype = SOCK_STREAM;
+        
+        std::string serverIP = "127.0.0.1";
+        if (getaddrinfo(hostName, NULL, &hints, &res) == 0) {
+            struct sockaddr_in *addr = (struct sockaddr_in *)res->ai_addr;
+            serverIP = inet_ntoa(addr->sin_addr);
+            freeaddrinfo(res);
+        }
+        
+        std::cout << "Server started on IP: " << serverIP << ", waiting for connections...\n";
         
         while (running) {
             SOCKET clientSocket = accept(serverSocket, nullptr, nullptr);
