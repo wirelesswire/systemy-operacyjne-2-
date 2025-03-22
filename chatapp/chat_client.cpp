@@ -11,6 +11,8 @@ private:
     SOCKET clientSocket;
     bool running;
     std::string username;
+    const std::string MESSAGE_DELIMITER = "||MSG||";  // Custom message delimiter
+    std::string messageBuffer;  // Buffer for incomplete messages
 
 public:
     ChatClient(const std::string& ip = "127.0.0.1") : running(true) {
@@ -64,12 +66,24 @@ public:
             }
             
             buffer[bytesReceived] = '\0';
-            // Add timestamp to received message
-            time_t now = time(0);
-            tm* ltm = localtime(&now);
-            char timestamp[9];
-            strftime(timestamp, sizeof(timestamp), "%H:%M:%S", ltm);
-            std::cout << "[" << timestamp << "] " << buffer << std::endl;
+            messageBuffer += buffer;
+            
+            // Process complete messages
+            size_t delimiterPos;
+            while ((delimiterPos = messageBuffer.find(MESSAGE_DELIMITER)) != std::string::npos) {
+                // Extract the complete message
+                std::string completeMessage = messageBuffer.substr(0, delimiterPos);
+                
+                // Remove the processed message from the buffer
+                messageBuffer = messageBuffer.substr(delimiterPos + MESSAGE_DELIMITER.length());
+                
+                // Add timestamp to received message
+                time_t now = time(0);
+                tm* ltm = localtime(&now);
+                char timestamp[9];
+                strftime(timestamp, sizeof(timestamp), "%H:%M:%S", ltm);
+                std::cout << "[" << timestamp << "] " << completeMessage << std::endl;
+            }
         }
     }
 

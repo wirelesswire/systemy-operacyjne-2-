@@ -20,6 +20,7 @@ private:
     bool running;
     SOCKET serverSocket;
     std::map<SOCKET, std::string> clientNames;  // Store client names
+    const std::string MESSAGE_DELIMITER = "||MSG||";  // Custom message delimiter
 
     void handleClient(SOCKET clientSocket) {
         char buffer[1024];
@@ -38,8 +39,8 @@ private:
         {
             std::lock_guard<std::mutex> lock(history_mutex);
             for (const auto& msg : messageHistory) {
-                std::string msgWithSender = clientNames[clientSocket] + ": " + msg;
-                send(clientSocket, msg.c_str(), msg.length(), 0);
+                std::string msgWithDelimiter = msg + MESSAGE_DELIMITER;
+                send(clientSocket, msgWithDelimiter.c_str(), msgWithDelimiter.length(), 0);
             }
         }
 
@@ -74,8 +75,9 @@ private:
 
     void broadcastMessage(const std::string& message) {
         std::lock_guard<std::mutex> lock(clients_mutex);
+        std::string messageWithDelimiter = message + MESSAGE_DELIMITER;
         for (SOCKET client : clients) {
-            send(client, message.c_str(), message.length(), 0);
+            send(client, messageWithDelimiter.c_str(), messageWithDelimiter.length(), 0);
         }
     }
 
