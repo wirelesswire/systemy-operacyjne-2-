@@ -13,9 +13,16 @@ The Dining Philosophers problem is a classic synchronization problem that illust
 
 ## Building the Program
 
+### Windows
+```bash
+g++ dining_philosophers.cpp -o dining_philosophers.exe -lws2_32 -lpthread
+```
+
 ### Prerequisites
 - C++ compiler with C++11 support
 - CMake (version 3.10 or higher)
+
+
 
 ### Build Instructions
 ```bash
